@@ -24,7 +24,7 @@ const Hero = () => {
 
   const [displayText, setDisplayText] = useState('');
   const [startTyping, setStartTyping] = useState(false);
-  const prefixString = "I am a ";
+  const prefixString = "I am ";
 
   // GSAP Animation
   useGSAP(() => {

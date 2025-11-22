@@ -1,12 +1,13 @@
 export const aboutData = {
   name: "Anish Narayan S",
   taglines: [
-    "Web Developer",
-    "UI/UX Enthusiast",
-    "Data Analyst",
-    "Machine Learning Explorer",
-    "Open Source Contributor",
-    "Full Stack Developer",
+    "a Web Developer",
+    "a UI/UX Enthusiast",
+    "a Data Analyst",
+    "a Machine Learning Explorer",
+    "an Open Source Contributor",
+    "a Full Stack Developer",
+    "an AI Enthusiast"
   ],
   bio: [
     "Hello! I'm a passionate and creative developer with a knack for building beautiful, intuitive, and highly performant web applications.",

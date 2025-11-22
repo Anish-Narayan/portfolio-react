@@ -79,19 +79,19 @@ const Contact = () => {
             <div className={styles.details}>
               <div className={styles.detailItem}>
                 <span className={styles.icon}>@</span>
-                <a href="mailto:your.email@example.com" className={styles.link}>your.email@example.com</a>
+                <a href="mailto:anish11042006@gmail.com" className={styles.link}>anish11042006@gmail.com</a>
               </div>
               <div className={styles.detailItem}>
                 <span className={styles.icon}>📍</span>
-                <span>Tech City, Digital Realm</span>
+                <span>Coimbatore</span>
               </div>
             </div>
 
             {/* Social Links Placeholder */}
             <div className={styles.socials}>
-              <a href="#" className={styles.socialLink}>GITHUB</a>
-              <a href="#" className={styles.socialLink}>LINKEDIN</a>
-              <a href="#" className={styles.socialLink}>TWITTER</a>
+              <a href="https://www.github.com/Anish-Narayan" className={styles.socialLink}>GITHUB</a>
+              <a href="https://www.linkedin.com/in/s-anish-narayan/" className={styles.socialLink}>LINKEDIN</a>
+              <a href="https://www.instagram.com/anish_._s/" className={styles.socialLink}>INSTAGRAM</a>
             </div>
           </div>
 
