@@ -1,0 +1,301 @@
+/* src/components/Hero/Hero.module.css */
+
+/* =========================================
+   1. GLOBAL VARIABLES & THEME
+   ========================================= */
+:global {
+  :root {
+    /* Core Colors - Lighter shade of dark for background */
+    --bg-color: #1a1a1a; 
+    --bg-grid: rgba(255, 255, 255, 0.04);
+    
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    
+    /* Glitch / Accent Colors */
+    --glitch-cyan: #00e5ff;
+    --glitch-pink: #ff0055;
+    
+    /* Cursor */
+    --cursor-color: var(--glitch-cyan);
+  }
+
+  /* Light Mode Overrides */
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg-color: #ffffff;
+      --bg-grid: rgba(0, 0, 0, 0.05);
+      --text-primary: #111111;
+      --text-secondary: #555555;
+      --glitch-cyan: #007bff;
+      --glitch-pink: #d60046;
+      --cursor-color: #333;
+    }
+  }
+}
+
+/* =========================================
+   2. MAIN LAYOUT & BACKGROUND
+   ========================================= */
+
+.heroSection {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 2rem;
+  
+  /* Tech Grid Background */
+  background-color: var(--bg-color);
+  background-image: 
+    linear-gradient(var(--bg-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+  background-size: 50px 50px;
+  
+  transition: background-color 0.4s ease;
+}
+
+/* Vignette Overlay (Focuses eyes on center) */
+.heroSection::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 40%, var(--bg-color) 100%);
+  pointer-events: none;
+}
+
+/* Container for Text and Image */
+.heroContent {
+  position: relative;
+  max-width: 1200px;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+/* =========================================
+   3. TEXT CONTENT (LEFT SIDE)
+   ========================================= */
+
+.textContent {
+  flex: 1;
+  text-align: left;
+}
+
+.heroName {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: var(--text-primary);
+  position: relative;
+  cursor: default;
+}
+
+.nameWord {
+  display: inline-block;
+  white-space: pre;
+}
+
+.heroTagline {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  margin-top: 1.5rem;
+  color: var(--text-secondary);
+  min-height: 1.6em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.2em;
+  background-color: var(--cursor-color);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-bottom: 3px;
+}
+
+/* =========================================
+   4. UNIQUE PHOTO FRAME (RIGHT SIDE)
+   ========================================= */
+
+.imageContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Polygon Frame Container */
+.techFrame {
+  position: relative;
+  width: 350px;
+  height: 400px; /* Aspect ratio for portrait photo */
+  padding: 5px;  /* Width of the neon border */
+  
+  /* Neon Gradient Background */
+  background: linear-gradient(135deg, var(--glitch-cyan), var(--glitch-pink));
+  
+  /* Cut-Corner Shape */
+  clip-path: polygon(
+    20% 0%, 100% 0, 
+    100% 80%, 80% 100%, 
+    0 100%, 0% 20%
+  );
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.techFrame:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 229, 255, 0.15);
+}
+
+/* The Photo Itself */
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background-color: #000; /* Fallback background */
+  
+  /* Inner Cut Shape (Matches frame) */
+  clip-path: polygon(
+    20% 0%, 100% 0, 
+    100% 80%, 80% 100%, 
+    0 100%, 0% 20%
+  );
+  
+  /* Effect: Grayscale + High Contrast */
+  filter: grayscale(100%) contrast(1.1);
+  transition: filter 0.5s ease;
+}
+
+/* Hover Effect: Restore Color */
+.techFrame:hover .profileImage {
+  filter: grayscale(0%) contrast(1);
+}
+
+/* Decorative Accents */
+.cornerAccent {
+  position: absolute;
+  top: 20px;
+  left: -10px;
+  width: 40px;
+  height: 4px;
+  background: var(--glitch-cyan);
+  box-shadow: 0 0 10px var(--glitch-cyan);
+  z-index: 2;
+}
+
+.cornerAccentBottom {
+  position: absolute;
+  bottom: 20px;
+  right: -10px;
+  width: 40px;
+  height: 4px;
+  background: var(--glitch-pink);
+  box-shadow: 0 0 10px var(--glitch-pink);
+  z-index: 2;
+}
+
+/* =========================================
+   5. GLITCH ANIMATION (Shadow Method)
+   ========================================= */
+
+.glitch {
+  position: relative;
+  /* Ensure text remains visible */
+  color: var(--text-primary); 
+}
+
+.glitch:hover {
+  /* Shakes the text */
+  animation: glitch-skew 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  /* Creates the Color Split using shadows (No double text!) */
+  text-shadow: 
+    3px 0 var(--glitch-pink), 
+    -3px 0 var(--glitch-cyan);
+}
+
+/* =========================================
+   6. GLOBAL KEYFRAMES
+   ========================================= */
+:global {
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes glitch-skew {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+}
+
+/* =========================================
+   7. RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 968px) {
+  .heroContent {
+    flex-direction: column-reverse; /* Image Top, Text Bottom */
+    gap: 2rem;
+    padding-top: 2rem;
+  }
+
+  .textContent {
+    text-align: center;
+  }
+
+  .heroTagline {
+    justify-content: center;
+  }
+
+  .techFrame {
+    width: 280px;
+    height: 320px;
+  }
+  
+  .heroName {
+    font-size: clamp(3rem, 10vw, 4.5rem);
+  }
+  
+  .cornerAccent { left: -5px; }
+  .cornerAccentBottom { right: -5px; }
+}
+
+/* =========================================
+   8. ACCESSIBILITY
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+  .glitch:hover, 
+  .cursor,
+  .techFrame:hover {
+    animation: none !important;
+    transform: none !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+  
+  .cursor {
+    opacity: 1;
+  }
+}

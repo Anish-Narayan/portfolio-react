@@ -1,0 +1,5 @@
+.mainContent {
+  /* This ensures content doesn't start under the sticky navbar */
+  padding-top: 60px; /* Adjust based on your navbar's height */
+  position: relative; /* Crucial for page transitions */
+}

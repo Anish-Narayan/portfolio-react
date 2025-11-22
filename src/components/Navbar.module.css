@@ -1,0 +1,208 @@
+/* src/components/Navbar.module.css */
+
+/* --- VARIABLES --- */
+:global {
+  :root {
+    --nav-bg: rgba(26, 26, 26, 0.85); /* Dark mode default */
+    --nav-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #ffffff;
+    --text-muted: #a0a0a0;
+    --glitch-cyan: #00e5ff;
+    --glitch-pink: #ff0055;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --nav-bg: rgba(255, 255, 255, 0.85);
+      --nav-border: rgba(0, 0, 0, 0.1);
+      --text-primary: #111;
+      --text-muted: #555;
+      --glitch-cyan: #007bff;
+      --glitch-pink: #d60046;
+    }
+  }
+}
+
+/* --- MAIN NAVBAR --- */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1rem 1.5rem;
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--nav-border);
+  transition: all 0.3s ease;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- LOGO --- */
+
+.logo {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: -1px;
+}
+
+.bracket {
+  color: var(--glitch-cyan);
+  margin: 0 2px;
+}
+
+.logo:hover .bracket {
+  text-shadow: 0 0 8px var(--glitch-cyan);
+}
+
+/* --- DESKTOP LINKS --- */
+
+.desktopLinks {
+  display: none; /* Hidden on mobile */
+  align-items: center;
+  gap: 2rem;
+}
+
+.navLink {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  position: relative;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: var(--glitch-cyan);
+}
+
+/* Active State Line */
+.navLink::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--glitch-pink);
+  transition: width 0.3s ease;
+}
+
+.navLink.active {
+  color: var(--text-primary);
+}
+
+.navLink.active::after {
+  width: 100%;
+  box-shadow: 0 0 8px var(--glitch-pink);
+}
+
+/* --- CONTROLS (Theme & Mobile Toggle) --- */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.themeToggle, .mobileToggle {
+  background: transparent;
+  border: 1px solid var(--nav-border);
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: var(--text-muted);
+}
+
+.themeToggle:hover, .mobileToggle:hover {
+  border-color: var(--glitch-cyan);
+  color: var(--glitch-cyan);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.mobileToggle {
+  display: flex; /* Visible on mobile */
+}
+
+/* --- MOBILE MENU --- */
+
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobileMenu.open {
+  max-height: 400px; /* Enough height for links */
+  padding: 1rem 0;
+}
+
+.mobileLink {
+  padding: 1rem 2rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  border-left: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.mobileLink:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--glitch-cyan);
+  padding-left: 2.5rem; /* Slide effect */
+}
+
+.mobileLink.active {
+  color: var(--text-primary);
+  border-left-color: var(--glitch-pink);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* --- RESPONSIVE BREAKPOINTS --- */
+
+@media (min-width: 768px) {
+  .desktopLinks {
+    display: flex;
+  }
+
+  .mobileToggle {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: none; /* Never show mobile menu on desktop */
+  }
+}

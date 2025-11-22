@@ -1,15 +1,36 @@
 /* src/index.css */
 
-/* 1. IMPORT GOOGLE FONTS */
+/* 1. Import Fonts: Inter (UI) and JetBrains Mono (Code/Tech) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
 
-/* 2. CSS VARIABLES */
+/* 2. CSS Variables */
 :root {
-  /* Typography */
+  /* Font Families */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* --- DARK MODE (DEFAULT) --- */
+  /* --- LIGHT MODE (Default) --- */
+  --bg-color: #ffffff;
+  --bg-grid: rgba(0, 0, 0, 0.05);
+  
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --text-muted: #999999;
+
+  /* Accents (Readable in Light Mode) */
+  --glitch-cyan: #007bff;
+  --glitch-pink: #d60046;
+  --color-primary: var(--glitch-cyan);
+  
+  /* UI Elements */
+  --border-color: rgba(0, 0, 0, 0.1);
+  --card-bg: #f3f4f6;
+  --input-bg: #ffffff;
+}
+
+/* --- DARK MODE (Cyberpunk Theme) --- */
+/* The Navbar adds the 'dark' class to the html element */
+html.dark {
   --bg-color: #1a1a1a;
   --bg-grid: rgba(255, 255, 255, 0.04);
   
@@ -28,27 +49,7 @@
   --input-bg: rgba(255, 255, 255, 0.03);
 }
 
-/* --- LIGHT MODE (Override) --- */
-html.light {
-  --bg-color: #ffffff;
-  --bg-grid: rgba(0, 0, 0, 0.05);
-  
-  --text-primary: #111111;
-  --text-secondary: #555555;
-  --text-muted: #999999;
-
-  /* Readable Accents */
-  --glitch-cyan: #007bff;
-  --glitch-pink: #d60046;
-  --color-primary: var(--glitch-cyan);
-  
-  /* UI Elements */
-  --border-color: rgba(0, 0, 0, 0.1);
-  --card-bg: #f3f4f6;
-  --input-bg: #ffffff;
-}
-
-/* 3. GLOBAL RESETS */
+/* 3. Global Resets & Base Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -65,7 +66,7 @@ body {
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Prevent scrollbar flashing during transitions */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -84,7 +85,7 @@ a:hover {
   color: var(--glitch-pink);
 }
 
-/* 4. LAYOUT UTILITIES */
+/* 4. Layout Utilities */
 .container {
   width: 100%;
   max-width: 1280px;
@@ -95,10 +96,9 @@ a:hover {
 section {
   padding: 6rem 0;
   position: relative;
-  width: 100%;
 }
 
-/* 5. CUSTOM SCROLLBAR (Dark Mode Default) */
+/* 5. Custom Cyberpunk Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -114,19 +114,16 @@ section {
     transition: background 0.3s ease;
 }
 
+html.dark ::-webkit-scrollbar-thumb {
+    background: #333;
+}
+
 ::-webkit-scrollbar-thumb:hover {
     background: var(--glitch-cyan);
 }
 
-/* Scrollbar override for Light Mode */
-html.light ::-webkit-scrollbar-thumb {
-    background: #ccc;
-}
-html.light ::-webkit-scrollbar-thumb:hover {
-    background: var(--glitch-cyan);
-}
-
-/* 6. PAGE TRANSITION CONTAINER */
+/* 6. Page Transition Container (Used in App.js) */
+/* This style is crucial for GSAP page transitions to stack correctly */
 .page-transition-container {
   width: 100%;
   min-height: 100vh;
@@ -134,10 +131,12 @@ html.light ::-webkit-scrollbar-thumb:hover {
   top: 0;
   left: 0;
   will-change: transform, opacity, filter;
+  /* Ensure padding for fixed navbar */
   padding-top: 0; 
 }
 
-/* 7. BACKGROUND GRID PATTERN */
+/* 7. Utility: Background Grid (Optional helper) */
+/* This applies the grid texture globally if added to a div */
 .bg-grid-pattern {
   position: absolute;
   inset: 0;
